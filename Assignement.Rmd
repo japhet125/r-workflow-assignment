@@ -1,0 +1,34 @@
+title: "NYC Open Data – R Workflow"
+author: "Guibril Ramde"
+date: "2026-01-25"
+output: html_document
+
+## Overview
+
+This project analyzes housing-related data obtained from NYC Open Data. The dataset includes
+information on housing programs, population counts, and rental costs, and is used here to
+demonstrate data loading and transformation in R.
+Source: https://opendata.cityofnewyork.us/
+
+## Data Transformation
+
+The original NYC Open Data file contained a large number of demographic and housing-related
+variables. To simplify downstream analysis, a subset of relevant columns was selected,
+including program type, Section 8 status, total families, total population, and average gross rent.
+Column names were also cleaned to improve readability and consistency.
+
+
+
+## Conclusion
+
+This analysis prepared a clean and reproducible subset of NYC housing data for future exploration.
+Future work could examine relationships between housing programs, population size, and rental costs
+or incorporate additional years of data for trend analysis.
+
+dataset = read.csv(
+  "https://raw.githubusercontent.com/japhet125/r-workflow-assignment/refs/heads/main/NYCHA_Resident_Data_Book_Summary_20260125.csv",
+  stringsAsFactors = FALSE
+  
+)
+head(dataset)
+
