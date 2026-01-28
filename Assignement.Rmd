@@ -1,11 +1,29 @@
+---
 title: "NYC Open Data – R Workflow"
 author: "Guibril Ramde"
 date: "2026-01-25"
 output: html_document
+---
+## Approach
+
+
+For this project, I plan to work with a housing-related dataset from NYC Open Data that contains
+information on housing programs, population counts, and rental costs. I will begin by identifying
+a dataset that is relevant to understanding housing conditions in New York City and storing it in
+a public GitHub repository to ensure reproducibility.
+
+My approach will focus on loading the data directly from a public URL into R and then selecting
+a meaningful subset of variables that are most useful for downstream analysis. I will clean and
+rename columns to make them easier to interpret and consistent with standard naming conventions.
+This transformed dataset will serve as a clean foundation for future exploratory analysis.
+
+One anticipated challenge is that NYC Open Data files often contain many columns, inconsistent
+naming conventions, or missing values. I may need to inspect the data structure carefully and
+decide which variables are relevant and which can be safely removed. Another challenge may be
+ensuring that all data types are correctly interpreted when importing the CSV file.
 
 ## Overview
-
-This project analyzes housing-related data obtained from NYC Open Data. The dataset includes
+housing-related data obtained from NYC Open Data. The dataset includes
 information on housing programs, population counts, and rental costs, and is used here to
 demonstrate data loading and transformation in R.
 Source: https://opendata.cityofnewyork.us/
@@ -17,7 +35,39 @@ variables. To simplify downstream analysis, a subset of relevant columns was sel
 including program type, Section 8 status, total families, total population, and average gross rent.
 Column names were also cleaned to improve readability and consistency.
 
+```{r}
+dataset <- read.csv(
+  "https://raw.githubusercontent.com/japhet125/r-workflow-assignment/main/NYCHA_Resident_Data_Book_Summary_20260125.csv",
+  stringsAsFactors = FALSE
+)
 
+head(dataset)
+str(dataset)
+colnames(dataset)
+#selecting a subset of a column
+
+subset_dataset = dataset[, c(
+  "PROGRAM",
+  "STATECITY_SECTION8_FLAG",
+  "Total.Families",
+  "Total.Population",
+  "All.Average.Gross.Rent"
+  
+)]
+
+head(subset_dataset)
+#cleaning column names
+
+colnames(subset_dataset) = c(
+  "CITY_PROGRAM",
+  "SECTION_8",
+  "Total_Families",
+  "Total_Population",
+  "All_Average_Gross_Rent"
+)
+head(subset_dataset)
+
+```
 
 ## Conclusion
 
@@ -25,10 +75,4 @@ This analysis prepared a clean and reproducible subset of NYC housing data for f
 Future work could examine relationships between housing programs, population size, and rental costs
 or incorporate additional years of data for trend analysis.
 
-dataset = read.csv(
-  "https://raw.githubusercontent.com/japhet125/r-workflow-assignment/refs/heads/main/NYCHA_Resident_Data_Book_Summary_20260125.csv",
-  stringsAsFactors = FALSE
-  
-)
-head(dataset)
 
